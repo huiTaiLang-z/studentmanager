@@ -38,17 +38,17 @@ router.get('/register',(req,res)=>{
 //获取注册页面的信息,注册成功跳转到登录界面
 router.post('/register',(req,res)=>{
     let userName=req.body.userName;
-    let password=req.body.password;
+    let userPass=req.body.userPass;
     helper.find('admin',{userName},(result)=>{
         if(result.length==0) {
-            helper.insertOne('admin',{userName,password},(result)=>{
+            helper.insertOne('admin',{userName,userPass},(result)=>{
                 if(result.n==1) {
                      // 去登录页
                      helper.tips(res,'注册成功','/manager/login');
                 }
             })
         }else{
-            helper.tips(res,'注册失败,该用户名已被注册','/manager/login');
+            helper.tips(res,'注册失败,该用户名已被注册','/manager/register');
         }
     })
 })
@@ -58,7 +58,7 @@ router.get('/vcode', function (req, res) {
     // 使用第三方生成验证码
     var captcha = svgCaptcha.create();
     // 把验证码的信息保存到 session中 方便后续的匹配
-    req.session.captcha = captcha.text;
+    req.session.captcha = captcha.text.toLowerCase();
     // console.log(captcha.text);
     // 设置类型
     res.type('svg');

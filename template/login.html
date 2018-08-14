@@ -78,11 +78,18 @@
 <script src="/bootstrap/js/jquery-1.12.4.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/md5/md5.min.js"></script>
 <script>
   $(function(){
     $('.vCode').on('click',function(){
     $(this).attr('src',"/manager/vcode?"+Date.now());
   })
   })
- 
+
+$(function(){
+  $('.register').on('click',function(){
+    let value=$('#userPass').val();
+    $('#userPass').val(md5(value,'big bug'));
+  })
+})
 </script>
